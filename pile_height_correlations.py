@@ -73,7 +73,7 @@ for rep in range(len(gradients)):
 correlation_means = []
 errors = []
 
-# extract the mean and std
+# extract the mean and std error
 for s in separations:
     correlation_means.append(np.mean(correlations[s]))
     errors.append(np.std(correlations[s]))

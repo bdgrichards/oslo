@@ -9,9 +9,13 @@ from utils import figures_folder
 # =========================================================
 lengths, height_sequence_list = get_heights_data()
 
-average_height_list: list = []
+average_height_list = []
+average_height_errors = []
 for l in height_sequence_list:
     average_height_list.append(np.average(l))
+    average_height_errors.append(np.std(l)/np.sqrt(len(l)))
+print("Lengths:", lengths)
+print("Errors:", average_height_errors)
 
 # =========================================================
 # fitting

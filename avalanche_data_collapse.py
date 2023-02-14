@@ -6,10 +6,10 @@ from logbin import logbin
 # =========================================================
 # parameters
 # =========================================================
-scale = 1.1  # logbin scale
+scale = 1.2  # logbin scale
 # data collapse parameters
 tau_s = 1.56
-D = 2.15
+D = 2.16
 
 # =========================================================
 # get data

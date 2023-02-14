@@ -11,16 +11,20 @@ from scipy.optimize import curve_fit
 lengths = [4, 8, 16, 32, 64, 128, 256, 512]
 repetitions = 10
 filename = 'cross_over_times.pickle'
+errors_filename = 'cross_over_errors.pickle'
 
 # =========================================================
 # get data
 # =========================================================
 cross_over_times = []
+errors = []
 # if saved data, use that, else generate new data
 try:
     # attempt to load the data file
     with open(data_folder + filename, "rb") as f:
         cross_over_times = pickle.load(f)
+    with open(data_folder + errors_filename, "rb") as f:
+        errors = pickle.load(f)
 except:
     # generate the data
     for length in lengths:
@@ -35,12 +39,16 @@ except:
                 counter += 1
             times.append(counter)
         cross_over_times.append(np.average(times))
+        errors.append(np.std(times))
         # log progress, since this takes a while
         print("Length", length, "complete")
 
         # save the data
         with open(data_folder + filename, "wb") as f:
             pickle.dump(cross_over_times, f)
+        with open(data_folder + errors_filename, "wb") as f:
+            pickle.dump(errors, f)
+print("Errors:", errors)
 
 # =========================================================
 # fitting
@@ -69,6 +77,9 @@ fig = plt.figure(figsize=(6.5, 3), layout="constrained")
 ax1 = fig.add_subplot(121)
 ax1.scatter(lengths, cross_over_times, s=50,
             marker="+", c="k", label="Data")  # type: ignore
+# error bars are too small to see on the plot
+# ax1.errorbar(lengths, cross_over_times, yerr=errors,
+#              fmt="x", c="k", label="Data", capsize=2)
 ax1.plot(fit_x_vals, fit_y_vals, label=r"$ax^2$ Fit",
          color='lightgrey', linestyle='dashed', zorder=-1)
 ax1.set_xlabel("System Length, $L$")
@@ -80,6 +91,9 @@ ax1.set_title("(A)")
 ax2 = fig.add_subplot(122)
 ax2.scatter(lengths, cross_over_times, s=50,
             marker="+", c="k", label="Data")  # type: ignore
+# error bars are too small to see on the plot
+# ax2.errorbar(lengths, cross_over_times, yerr=errors,
+#             fmt="+", c="k", label="Data")
 ax2.plot(fit_x_vals, fit_y_vals, label=r"$ax^2$ Fit",
          color='lightgrey', linestyle='dashed', zorder=-1)
 ax2.legend(bbox_to_anchor=(1.05, 1), loc='upper left',

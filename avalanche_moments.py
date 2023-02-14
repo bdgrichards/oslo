@@ -9,7 +9,7 @@ import numpy as np
 # =========================================================
 all_moments = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 # for single moments, or initial guesses
-moments_to_plot = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+moments_to_plot = [1, 2, 3, 4]
 
 # =========================================================
 # get data
@@ -26,17 +26,6 @@ def calculate_moment(data, order):
     return sum(scaled_data) / len(data)
 
 
-def power_law_func(L, a0, a1):
-    try:
-        L[0]
-        results = []
-        for L_i in L:
-            results.append(a0 * L_i ** a1)
-        return results
-    except:
-        return a0 * L ** a1
-
-
 # calculate the moments
 moments_values = []
 for m in moments_to_plot:
@@ -48,7 +37,21 @@ for m in moments_to_plot:
 # =========================================================
 # fitting the moments
 # =========================================================
+
+
+def power_law_func(L, a0, a1):
+    try:
+        L[0]
+        results = []
+        for L_i in L:
+            results.append(a0 * L_i ** a1)
+        return results
+    except:
+        return a0 * L ** a1
+
+
 fit_data = []
+a1_errors = []
 initial_guesses = [
     [1, 1],  # 1
     [0.2, 3.2],  # 2
@@ -65,6 +68,8 @@ for m in range(len(moments_to_plot)):
     popt, pcov = curve_fit(power_law_func, lengths,
                            moments_values[m], p0=initial_guesses[all_moments.index(moments_to_plot[m])], method='dogbox', max_nfev=100000)
     fit_data.append(popt)
+    a1_errors.append(np.sqrt(pcov[1][1]))
+print(a1_errors)
 
 # =========================================================
 # fitting the fits
@@ -88,7 +93,16 @@ def linear_func(k, a, b):
 # fit a straight line to the data
 popt, pcov = curve_fit(linear_func, x_vals, y_vals)
 print("Fit: %.2f + %.2f * k" % (popt[0], popt[1]))
-
+D = popt[1]
+D_err = np.sqrt(pcov[1, 1])
+Ts = 1 - (popt[0]/popt[1])
+# propagation by quadrature
+Ts_err = Ts * np.sqrt((np.sqrt(pcov[0, 0])/popt[0])
+                      ** 2 + (np.sqrt(pcov[1, 1])/popt[1])**2)
+print("D: %.3f" % D)
+print("D error: %.3f" % D_err)
+print("Ts: %.3f" % Ts)
+print("Ts error: %.3f" % Ts_err)
 
 # =========================================================
 # plotting
@@ -118,7 +132,6 @@ ax2.plot(x_vals, linear_func(
     x_vals, popt[0], popt[1]), c='grey', zorder=-1, label='Fit')
 ax2.set_xlabel("$k$")
 ax2.set_ylabel(r"$D \, (1 + k - \tau_s)$")
-ax2.set_xticks([0, 2.5, 5, 7.5, 10])
 ax2.legend()
 ax2.set_title("(B)")
 
