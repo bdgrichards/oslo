@@ -2,7 +2,7 @@
 ProjectTemplate2022/
 
 # Data folder
-./data/
+data/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
