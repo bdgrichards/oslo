@@ -11,7 +11,7 @@ def get_avalanches_data() -> tuple[list[int], list[list[int]]]:
     """
     lengths = [4, 8, 16, 32, 64, 128, 256, 512]
     num_cycles = 100000
-    repetitions = 3
+    repetitions = 10
     filename = 'avalanches_list.pickle'
 
     avalanches_list: list[list[int]] = []
@@ -27,8 +27,8 @@ def get_avalanches_data() -> tuple[list[int], list[list[int]]]:
 
             for _ in range(repetitions):
                 model = Model(length)
-                # get the model to steady state
-                while model.get_is_transient():
+                # maximum number of grains in steady state is 1/2 * L * 2L = L^2
+                for _ in range(length**2):
                     model.cycle()
                 # only then count the avalanches
                 for _ in range(num_cycles):

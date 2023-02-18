@@ -16,6 +16,11 @@ moments_to_plot = [1, 2, 3, 4]
 # =========================================================
 lengths, avalanches_list = get_avalanches_data()
 
+# since finite scaling ansatz only valid for L >> 1
+# ignoring L = 4 & 8
+lengths = lengths[2:]
+avalanches_list = avalanches_list[2:]
+
 # =========================================================
 # calculate moments
 # =========================================================

@@ -3,6 +3,7 @@ from generate_avalanches import get_avalanches_data
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from logbin import logbin
+import matplotlib as mpl
 
 # =========================================================
 # parameters
@@ -27,6 +28,9 @@ for i in avalanches_list:
 # =========================================================
 # plotting
 # =========================================================
+# when dealining with large amounts of data
+mpl.rcParams['agg.path.chunksize'] = 10000
+
 fig = plt.figure(figsize=(6.5, 3), tight_layout=True)
 gs = gridspec.GridSpec(1, 3)
 
@@ -38,9 +42,9 @@ for i in reversed(range(len(lengths))):
 ax1.set_xlabel("$t$")
 ax1.set_ylabel("Avalanche Size, $s$")
 ax1.set_yscale('log')
-ax1.set_xticks([0, 50000, 100000])
-ax1.set_xlim(0, 100000)
-ax1.ticklabel_format(axis='x', style='sci', scilimits=(0, 0))
+ax1.set_xlim(0, 1000000)
+ax1.set_xticks([0, 500000, 1000000])
+ax1.ticklabel_format(axis='x', style='sci', scilimits=(0, 0), useMathText=True)
 ax1.set_title("(A)")
 
 ax2 = fig.add_subplot(gs[0, 1:])

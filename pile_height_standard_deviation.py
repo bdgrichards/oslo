@@ -10,6 +10,23 @@ import numpy as np
 lengths, height_sequence_list = get_heights_data()
 std_values = [np.std(data) for data in height_sequence_list]
 
+
+def std_error(std, n):
+    """
+    Return the error on the std
+    """
+    return std / np.sqrt(2*n - 2)
+
+
+errors = []
+for i in range(len(height_sequence_list)):
+    n = len(height_sequence_list[i])
+    std = std_values[i]
+    errors.append(std_error(std, n))
+
+print("Lengths:", lengths)
+print("Errors:", errors)
+
 # =========================================================
 # fitting
 # =========================================================
@@ -21,7 +38,8 @@ def std_cts_func(L, a0, o1):
 
 popt, pcov = curve_fit(std_cts_func, lengths, std_values)
 x_vals = np.linspace(4, 600, 100)
-print("Fit: a0 = %.2f, o1 = %.2f" % (popt[0], popt[1]))
+print("Fit: a0 = %.4f, o1 = %.4f +\- %.4f" %
+      (popt[0], popt[1], np.sqrt(pcov[1, 1])))
 
 # =========================================================
 # plotting

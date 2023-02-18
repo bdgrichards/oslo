@@ -10,7 +10,7 @@ def get_heights_data() -> tuple[list[int], list[list[int]]]:
     Generating the data may take some time.
     """
     lengths = [4, 8, 16, 32, 64, 128, 256, 512]
-    num_cycles = 100000
+    num_cycles = 1000000
     filename = 'pile_heights.pickle'
 
     height_sequence_list: list[list[int]] = []
@@ -24,8 +24,10 @@ def get_heights_data() -> tuple[list[int], list[list[int]]]:
         for length in lengths:
             height_sequence: list[int] = []
             model = Model(length)
-            while model.get_is_transient():
+            # maximum number of grains in steady state is 1/2 * L * 2L = L^2
+            for _ in range(length**2):
                 model.cycle()
+            # collect the data
             for _ in range(num_cycles):
                 model.cycle()
                 height_sequence.append(model.get_pile_height())

@@ -3,6 +3,7 @@ import random
 import matplotlib.pyplot as plt
 from utils import figures_folder
 
+
 class Model:
     def __init__(self, length: int, p: float = 0.5) -> None:
         """
@@ -156,11 +157,17 @@ class Model:
         self.drive()
         # relax all positions until stable
         pointer = 0
-        while pointer < self.length:
+        # keep track of the right most avalanche site
+        avalanche_limit = 0
+        # if pointer to the right of the avalanche limit, no possible further avalanches
+        while pointer < self.length and pointer <= avalanche_limit:
             # if this site is super critical
             if self.is_supercritical(pointer):
-                # relax and move pointer left by one
+                # relax the site
                 self.relax(pointer)
+                # update the avalanche site to current site + 1
+                avalanche_limit = max(avalanche_limit, pointer + 1)
+                # update the pointer
                 pointer -= 1
                 if pointer < 0:
                     pointer = 0
@@ -181,7 +188,7 @@ class Model:
         while pointer < self.length:
             if self.is_supercritical(pointer):
                 self.relax(pointer)
-                # difference to regular cycle is this counter 
+                # difference to regular cycle is this counter
                 counter += 1
                 pointer -= 1
                 if pointer < 0:
@@ -248,12 +255,13 @@ class Model:
         ax = fig.add_subplot(111)
         # plot the heights as a bar chart
         ax.bar(np.array(range(self.length)) + 1,
-                heights, width=0.95, color='grey')
+               heights, width=0.95, color='grey')
         ax.axis('scaled')
         ax.set_ylabel("Height")
         ax.set_xlabel("Site, $i$")
         if len(heights) <= 8:
-            ax.set_yticks(range( max(heights) + 1))
+            ax.set_yticks(range(max(heights) + 1))
             ax.set_xticks(np.array(range(self.length)) + 1)
             ax.grid(axis='y')
-        plt.savefig(figures_folder + save_as, format='svg', bbox_inches='tight')
+        plt.savefig(figures_folder + save_as,
+                    format='svg', bbox_inches='tight')

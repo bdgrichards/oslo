@@ -18,7 +18,7 @@ def collapse_func(x):
 
 
 # x values to plot the fitted function against
-x_min, x_max = -5, 5
+x_min, x_max = -7, 7
 x_vals = np.linspace(x_min, x_max, 100)
 
 fig = plt.figure(figsize=(6.5, 3), layout="constrained")
@@ -39,7 +39,7 @@ for i in reversed(range(len(lengths))):
 ax1.plot(x_vals, collapse_func(x_vals), color='k',
          label='CLT', linestyle='dashed')
 ax1.set_xlabel(r"$\frac{h - \langle h \rangle}{\sigma_h}$")
-ax1.set_ylabel(r"$\sigma_h$")
+ax1.set_ylabel(r"$\sigma_h \,\, P \, (h;L)$")
 ax1.set_xlim(x_min, x_max)
 ax1.set_title("(A)")
 
@@ -62,13 +62,13 @@ for i in reversed(range(len(lengths))):
     ax2.scatter(scaled_bin_means, diff_n, s=20, color="C%i" % (
         len(lengths) - i - 1), label="$L=$%i" % lengths[i], marker="x")  # type: ignore
 ax2.plot(x_vals, [0 for _ in x_vals], color='k',
-         label=r"CLT, $\mathcal{G}$", linestyle='dashed')
+         label=r"CLT, $\mathcal{E}$", linestyle='dashed')
 ax2.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
 ax2.set_xlabel("System Length, $L$")
-ax2.set_ylabel(r"$(\sigma_h - \mathcal{G}) \, / \, \mathcal{G}$")
+ax2.set_ylabel(
+    r"$(\sigma_h \, P - \mathcal{E}) \, / \, \mathcal{E}$")
 ax2.set_xlabel(r"$\frac{h - \langle h \rangle}{\sigma_h}$")
 ax2.set_xlim(x_min, x_max)
-ax2.set_ylim(-500, 500)
 ax2.set_yscale("symlog", linthresh=0.1)
 ax2.hlines([0.1, -0.1], x_min, x_max,
            color='lightgrey', linewidth=1, zorder=-1)

@@ -9,12 +9,17 @@ from logbin import logbin
 scale = 1.2  # logbin scale
 # data collapse parameters
 tau_s = 1.56
-D = 2.16
+D = 2.19
 
 # =========================================================
 # get data
 # =========================================================
 lengths, avalanches_list = get_avalanches_data()
+
+# since finite scaling ansatz only valid for L >> 1
+# ignoring L = 4 & 8
+lengths = lengths[2:]
+avalanches_list = avalanches_list[2:]
 
 # =========================================================
 # logbin data

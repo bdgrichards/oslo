@@ -10,7 +10,6 @@ from utils import data_folder, figures_folder
 length = 512
 repetitions = 20
 # to ensure the samples aren't biased by being at the transition point
-cycles_after_transient = 1000
 min_sep, max_sep = 1, 20
 filename = 'correlation_gradients.pickle'
 
@@ -29,9 +28,8 @@ except:
         # initiate model
         model = Model(length)
         # run model
-        while model.get_is_transient():
-            model.cycle()
-        for _ in range(cycles_after_transient):
+        # maximum number of grains in steady state is 1/2 * L * 2L = L^2
+        for _ in range(length**2):
             model.cycle()
         # get gradients
         gradients.append(model.get_gradients())

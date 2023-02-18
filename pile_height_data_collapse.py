@@ -10,7 +10,7 @@ import pickle
 # parameters
 # =========================================================
 lengths = [4, 8, 16, 32, 64, 128, 256, 512]
-repetitions = 5
+repetitions = 20
 filename = 'average_heights_with_time.pickle'
 
 # =========================================================
@@ -29,11 +29,8 @@ except:
         for _ in range(repetitions):
             model = Model(length)
             height_values: list[int] = []
-            while model.get_is_transient():
-                model.cycle()
-                height_values.append(model.get_pile_height())
-            # continue for 1/2 L^2 more cycles
-            for _ in range(int(0.5*length**2)):
+            # run for 1.5 * max cross over time
+            for _ in range(int(1.5*length**2)):
                 model.cycle()
                 height_values.append(model.get_pile_height())
             height_lists.append(height_values)
@@ -80,7 +77,7 @@ for i in range(len(y_vals)):
 
 # fitting
 popt, pcov = curve_fit(scaling_func, x_vals[-1], y_vals[-1])
-fit_x_vals = np.linspace(0.00001, 1.4, 100000)
+fit_x_vals = np.linspace(0.00001, 1.5, 100000)
 fit_y_vals = scaling_func(fit_x_vals, *popt)
 print("Fit: g = %.3f" % popt[0])
 
@@ -116,7 +113,7 @@ ax2.set_yscale('log')
 ax2.set_title("(B)")
 
 # zoom in region
-x1, x2 = 0.5, 1.5
+x1, x2 = 0.5, 1.7
 y1, y2 = 1.1, 1.9
 
 ax2ins = zoomed_inset_axes(ax2, 5, loc=4)

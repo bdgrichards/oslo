@@ -50,7 +50,7 @@ ax1.plot(x_vals, full_scaling_func(x_vals, *popt), color='lightgrey',
          linestyle='dashed', label='Full Fit', zorder=-1)
 ax1.legend(loc='lower right')
 ax1.set_xlabel("System Length, $L$")
-ax1.set_ylabel(r"$\langle \, h \rangle_t$")
+ax1.set_ylabel(r"$\langle h \rangle_t$")
 x1, _ = ax1.get_xlim()
 y1, _ = ax1.get_ylim()
 ax1.set_xlim(x1, x_max)
@@ -69,10 +69,11 @@ ax2.hlines(popt[0], x1, x_max, color='k',
 ax2.set_xlim(x1, x_max)
 ax2.set_ylim(1.55, 1.75)
 ax2.set_yticks([1.55, 1.60, 1.65, 1.70, 1.75])
-print("Fit: a0 = %.2f, a1 = %.2f, o1 = %.2f" % (popt[0], popt[1], popt[2]))
+print("Fit: a0 = %.3f +\- %.3f, a1 = %.3f +\- %.3f, o1 = %.3f +\- %.3f" %
+      (popt[0], np.sqrt(pcov[0, 0]), popt[1], np.sqrt(pcov[1, 1]), popt[2], np.sqrt(pcov[2, 2])))
 ax2.legend()
 ax2.set_xlabel("System Length, $L$")
-ax2.set_ylabel(r"$\langle \, h \rangle_t \,\, / \,\, L$")
+ax2.set_ylabel(r"$\langle h \rangle_t \,\, / \,\, L$")
 ax2.set_title("(B)")
 
 plt.savefig(figures_folder + 'corrections_to_scaling.svg',

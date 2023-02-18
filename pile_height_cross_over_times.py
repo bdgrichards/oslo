@@ -66,7 +66,7 @@ popt, pcov = curve_fit(squared_func, lengths, cross_over_times)
 fit_x_vals = np.linspace(3.5, 600, 1000)
 fit_y_vals = squared_func(fit_x_vals, *popt)
 # output the final parameters
-print("Fit: %.2f * x^2" % popt[0])
+print("Fit: (%.5f +/- %.5f) * x^2" % (popt[0], np.sqrt(pcov[0])))
 
 # =========================================================
 # plotting
