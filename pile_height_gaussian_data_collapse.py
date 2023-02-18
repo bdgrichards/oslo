@@ -2,6 +2,7 @@ from utils import figures_folder
 from generate_heights import get_heights_data
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.stats import skew
 
 # =========================================================
 # get data
@@ -43,8 +44,9 @@ ax1.set_ylabel(r"$\sigma_h \,\, P \, (h;L)$")
 ax1.set_xlim(x_min, x_max)
 ax1.set_title("(A)")
 
-# log-log plot
+# difference plot
 ax2 = fig.add_subplot(122)
+values_for_skewness = []
 for i in reversed(range(len(lengths))):
     data = height_sequence_list[i]
     average = np.average(data)
@@ -61,6 +63,12 @@ for i in reversed(range(len(lengths))):
             (scaled_n[index] / collapse_func(scaled_bin_means[index]))-1)
     ax2.scatter(scaled_bin_means, diff_n, s=20, color="C%i" % (
         len(lengths) - i - 1), label="$L=$%i" % lengths[i], marker="x")  # type: ignore
+    # add the x values to the overall list for skewness calculation
+    values_for_skewness += scaled_bin_means
+# calculate skewness
+total_skew = skew(values_for_skewness)
+print("Skew:", total_skew)
+# plot
 ax2.plot(x_vals, [0 for _ in x_vals], color='k',
          label=r"CLT, $\mathcal{E}$", linestyle='dashed')
 ax2.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
