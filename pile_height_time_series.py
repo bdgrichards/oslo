@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate the pile height time series plot
+# =========================================================
+
 from utils import data_folder, figures_folder
 from model import Model
 import pickle
@@ -63,4 +68,5 @@ ax2.set_yscale("log")
 ax2.set_title("(B)")
 
 # save the figure
-plt.savefig(figures_folder + 'height_with_time.svg', format='svg', bbox_inches='tight')
+plt.savefig(figures_folder + 'height_with_time.svg',
+            format='svg', bbox_inches='tight')

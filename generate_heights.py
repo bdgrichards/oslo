@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate steady state pile height data
+# =========================================================
+
 import pickle
 from model import Model
 from utils import data_folder

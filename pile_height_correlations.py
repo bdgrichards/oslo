@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate the inter-site correlations plot
+# =========================================================
+
 from model import Model
 import numpy as np
 import pickle
@@ -9,7 +14,6 @@ from utils import data_folder, figures_folder
 # =========================================================
 length = 512
 repetitions = 20
-# to ensure the samples aren't biased by being at the transition point
 min_sep, max_sep = 1, 20
 filename = 'correlation_gradients.pickle'
 

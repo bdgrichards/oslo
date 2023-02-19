@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# The model itself, used by all other scripts
+# =========================================================
+
 import numpy as np
 import random
 import matplotlib.pyplot as plt

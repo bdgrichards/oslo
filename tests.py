@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Tests for the model itself, for manual verification
+# =========================================================
+
 from model import Model
 import numpy as np
 

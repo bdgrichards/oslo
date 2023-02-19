@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate all of the avalanche data
+# =========================================================
+
 from model import Model
 import pickle
 from utils import data_folder
@@ -10,8 +15,8 @@ def get_avalanches_data() -> tuple[list[int], list[list[int]]]:
     Generating the data may take some time.
     """
     lengths = [4, 8, 16, 32, 64, 128, 256, 512]
-    num_cycles = 100000
-    repetitions = 10
+    num_cycles = 1000000
+    repetitions = 1
     filename = 'avalanches_list.pickle'
 
     avalanches_list: list[list[int]] = []

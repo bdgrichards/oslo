@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate the plot of all pile height probability distributions
+# =========================================================
+
 from utils import figures_folder
 from generate_heights import get_heights_data
 import matplotlib.pyplot as plt

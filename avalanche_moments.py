@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate the avalanche moments plot
+# =========================================================
+
 from generate_avalanches import get_avalanches_data
 import matplotlib.pyplot as plt
 from utils import figures_folder
@@ -62,12 +67,6 @@ initial_guesses = [
     [0.2, 3.2],  # 2
     [0.1, 5],  # 3
     [0.01, 8],  # 4
-    [0.01, 10],  # 5
-    [0.001, 12.4],  # 6
-    [0.001, 14.8],  # 7
-    [0.0001, 17.2],  # 8
-    [0.0001, 19.7],  # 9
-    [0.00001, 22]  # 10
 ]
 for m in range(len(moments_to_plot)):
     popt, pcov = curve_fit(power_law_func, lengths,

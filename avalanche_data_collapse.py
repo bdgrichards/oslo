@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate the avalanche data collapse plot
+# =========================================================
+
 import matplotlib.pyplot as plt
 from utils import figures_folder
 from generate_avalanches import get_avalanches_data
@@ -61,7 +66,7 @@ for i in reversed(range(len(lengths))):
 ax1.set_yscale('log')
 ax1.set_xscale('log')
 ax1.set_xlabel(r'$s \, / \, L^D$')
-ax1.set_ylabel(r'$\tilde{P}_N \, (s;L)$')
+ax1.set_ylabel(r'$s^{\tau_s} \,\, \tilde{P} \, (s;L)$')
 ax1.legend(bbox_to_anchor=(1.05, 1), loc='upper left',
            borderaxespad=0., markerscale=5, title=r"Size, $L$")
 

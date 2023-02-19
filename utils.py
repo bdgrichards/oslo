@@ -1,10 +1,15 @@
+# Python 3.10.6
+# =========================================================
+# Useful functions and constants
+# =========================================================
+
 import numpy as np
 
 # folder locations
 data_folder = './data/'
 figures_folder = './figures/'
 
-# useful functions
+
 def average_different_lengths(a: list[list[int]]) -> list[int]:
     """
     A function to average lists of different lengths.

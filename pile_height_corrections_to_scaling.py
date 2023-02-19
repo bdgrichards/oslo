@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate the corrections to scaling plot
+# =========================================================
+
 from generate_heights import get_heights_data
 import numpy as np
 import matplotlib.pyplot as plt
@@ -69,7 +74,7 @@ ax2.hlines(popt[0], x1, x_max, color='k',
 ax2.set_xlim(x1, x_max)
 ax2.set_ylim(1.55, 1.75)
 ax2.set_yticks([1.55, 1.60, 1.65, 1.70, 1.75])
-print("Fit: a0 = %.3f +\- %.3f, a1 = %.3f +\- %.3f, o1 = %.3f +\- %.3f" %
+print("Fit: a0 = %.3f +/- %.3f, a1 = %.3f +/- %.3f, o1 = %.3f +/- %.3f" %
       (popt[0], np.sqrt(pcov[0, 0]), popt[1], np.sqrt(pcov[1, 1]), popt[2], np.sqrt(pcov[2, 2])))
 ax2.legend()
 ax2.set_xlabel("System Length, $L$")

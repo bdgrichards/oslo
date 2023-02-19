@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate the pile height data collapse plot
+# =========================================================
+
 from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes, mark_inset
 from utils import data_folder, figures_folder, average_different_lengths
 from scipy.optimize import curve_fit

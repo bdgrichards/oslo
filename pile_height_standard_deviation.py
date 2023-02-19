@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate the pile height standard deviation plot
+# =========================================================
+
 from utils import figures_folder
 from generate_heights import get_heights_data
 import matplotlib.pyplot as plt
@@ -38,7 +43,7 @@ def std_cts_func(L, a0, o1):
 
 popt, pcov = curve_fit(std_cts_func, lengths, std_values)
 x_vals = np.linspace(4, 600, 100)
-print("Fit: a0 = %.4f, o1 = %.4f +\- %.4f" %
+print("Fit: a0 = %.4f, o1 = %.4f +/- %.4f" %
       (popt[0], popt[1], np.sqrt(pcov[1, 1])))
 
 # =========================================================

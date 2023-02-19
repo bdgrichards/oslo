@@ -1,3 +1,8 @@
+# Python 3.10.6
+# =========================================================
+# Generate the avalanche time series and probability distributions plot
+# =========================================================
+
 from utils import figures_folder
 from generate_avalanches import get_avalanches_data
 import matplotlib.pyplot as plt
@@ -37,8 +42,8 @@ gs = gridspec.GridSpec(1, 3)
 # log-linear plot of raw data
 ax1 = fig.add_subplot(gs[0, 0])
 for i in reversed(range(len(lengths))):
-    ax1.plot(range(len(avalanches_list[i])),
-             avalanches_list[i], label=str(lengths[i]), rasterized=True)
+    ax1.scatter(range(len(avalanches_list[i])),
+                avalanches_list[i], label=str(lengths[i]), s=0.1, rasterized=True)
 ax1.set_xlabel("$t$")
 ax1.set_ylabel("Avalanche Size, $s$")
 ax1.set_yscale('log')
@@ -56,7 +61,7 @@ for i in reversed(range(len(lengths))):
 ax2.set_yscale('log')
 ax2.set_xscale('log')
 ax2.set_xlabel("Avalanche Size, $s$")
-ax2.set_ylabel(r'$\tilde{P}_N \,(s;L)$')
+ax2.set_ylabel(r'$\tilde{P} (s;L)$')
 ax2.legend(bbox_to_anchor=(1.05, 1), loc='upper left',
            borderaxespad=0., markerscale=5, title=r"Size, $L$")
 ax2.set_title("(B)")
